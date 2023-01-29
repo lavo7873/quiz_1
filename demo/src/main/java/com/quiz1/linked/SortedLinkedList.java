@@ -1,6 +1,6 @@
 
 
-package linked;
+package com.quiz1.linked;
 
 
 import java.util.*;
