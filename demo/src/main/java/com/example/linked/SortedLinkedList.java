@@ -1,4 +1,5 @@
-package com.example;
+
+
 package linked;
 
 
@@ -85,22 +86,52 @@ public class SortedLinkedList {
 	 * Maintains the sorted order of the list
 	 */
 	public void insert(int i) {
-		
-		
+		Node newNode = new Node(i);
+		if (head == null || head.data >= newNode.data) {
+		      newNode.next = head;
+		      if (head != null) {
+		        head.prev = newNode;
+		      }
+		      head = newNode;
+		      return;
+		    }
+		    Node current = head;
+		    while (current.next != null && current.next.data < newNode.data) {
+		      current = current.next;
+		    }
+		    newNode.next = current.next;
+		    if (current.next != null) {
+		      current.next.prev = newNode;
+		    }
+		    current.next = newNode;
+		    newNode.prev = current;
 	}
 	
 	/*
 	 * This method returns true if the list is in sorted order
 	 */
 	public boolean isSorted() {
-		return false;
+		Node current = head;
+	    while (current != null && current.next != null) {
+	      if (current.data > current.next.data) {
+	        return false;
+	      }
+	      current = current.next;
+	    }
+	    return true;
 	}
 	
 	/*
 	 * This method returns a Java LinkedList of integers that matches the SortedLinkedList
 	 */
 	public LinkedList<Integer> getAscending(){
-		return new LinkedList<>();
+		LinkedList<Integer> linkedList = new LinkedList<>();
+	    Node current = head;
+	    while (current != null) {
+	      linkedList.add(current.data);
+	      current = current.next;
+	    }
+	    return linkedList;	
 		
 	}
 	
@@ -109,7 +140,13 @@ public class SortedLinkedList {
 	 * but in descending order (from largest to smallest)
 	 */
 	public LinkedList<Integer> getDescending(){
-		return new LinkedList<>();
+		LinkedList<Integer> linkedList = new LinkedList<>();
+	    Node current = head;
+	    while (current != null) {
+	      linkedList.addFirst(current.data);
+	      current = current.next;
+	    }
+	    return linkedList;
 	}
 	
 
